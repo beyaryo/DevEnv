@@ -9,25 +9,14 @@ import android.view.View
 import android.widget.*
 import com.lynx.wind.dev.DevEnv
 import com.lynx.wind.dev.intern.toDp
-import kotlin.properties.Delegates
 
-internal class DialogBaseUrl(context: Context, listener: DialogListener) : Dialog(context) {
+internal class DialogCustom(context: Context, listener: DialogListener, key: String) : Dialog(context) {
 
-    companion object {
-        const val TAG = "dialog-base-url"
-    }
-
-    private var baseUrl by Delegates.observable("") { _, _, newValue ->
-        checkBox.isChecked = newValue == defaultUrl
-    }
-    private val defaultUrl by lazy { DevEnv(context).getDefaultUrl() }
-    private var checkBox: CheckBox
-
-    private val DP5 by lazy { 5f.toDp(context).toInt() }
     private val DP10 by lazy { 10f.toDp(context).toInt() }
     private val DP15 by lazy { 15f.toDp(context).toInt() }
-    private val SP15 = 15f
     private val SP17 = 17f
+
+    private val data by lazy { DevEnv(context).getCustomSetting(key) }
 
     init {
         val container = RelativeLayout(context).apply {
@@ -57,7 +46,7 @@ internal class DialogBaseUrl(context: Context, listener: DialogListener) : Dialo
 
             setTextSize(TypedValue.COMPLEX_UNIT_SP, SP17)
             setTextColor(ContextCompat.getColor(context, android.R.color.holo_blue_dark))
-            text = "Base URL"
+            text = key.capitalize()
         }
 
         val editText = EditText(context).apply {
@@ -78,23 +67,6 @@ internal class DialogBaseUrl(context: Context, listener: DialogListener) : Dialo
             setBackgroundColor(ContextCompat.getColor(context, android.R.color.darker_gray))
         }
 
-        checkBox = CheckBox(context).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            setPadding(0, DP5, 0, DP5)
-
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, SP15)
-            text = "Use default URL"
-
-            setOnCheckedChangeListener { _, isChecked ->
-                editText.isEnabled = !isChecked
-
-                if (isChecked) editText.setText(defaultUrl)
-            }
-        }
-
         val button = Button(context).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -112,10 +84,8 @@ internal class DialogBaseUrl(context: Context, listener: DialogListener) : Dialo
                     return@setOnClickListener
                 }
 
-                baseUrl = editText.text.toString()
-
-                DevEnv(context).setBaseUrl(baseUrl)
-                listener.onDataChanged(TAG, baseUrl)
+                DevEnv(context).setCustom(key, editText.text.toString())
+                listener.onDataChanged(key, editText.text.toString())
                 dismiss()
             }
         }
@@ -125,14 +95,12 @@ internal class DialogBaseUrl(context: Context, listener: DialogListener) : Dialo
                 addView(title)
                 addView(editText)
                 addView(border)
-                addView(checkBox)
                 addView(button)
             })
         }
 
         setContentView(container)
 
-        baseUrl = DevEnv(context).getBaseUrl()
-        editText.setText(baseUrl)
+        editText.setText(data)
     }
 }
