@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Dev</string>
+    <string name="title_activity_dev_setting">Development Env Setting</string>
+</resources>

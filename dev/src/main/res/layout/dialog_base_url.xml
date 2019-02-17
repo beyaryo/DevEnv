@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_default">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       tools:ignore="UselessParent">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Base URL"
+          android:textColor="@android:color/holo_blue_dark"
+          android:padding="@dimen/padding_top"
+          android:textSize="@dimen/text_medium"
+          tools:ignore="HardcodedText"/>
+
+      <EditText
+          android:id="@+id/edit"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingStart="@dimen/padding_top"
+          android:paddingEnd="@dimen/padding_top"
+          android:paddingTop="@dimen/padding_default"
+          android:paddingBottom="@dimen/padding_default"
+          android:gravity="top"
+          android:hint="Enter Base URL"
+          android:inputType="text"
+          android:maxLines="1"
+          android:background="@android:color/white"
+          android:scrollbars="vertical"
+          tools:ignore="Autofill,HardcodedText"/>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@android:color/darker_gray"/>
+
+      <CheckBox
+          android:id="@+id/checkbox"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Use default URL"
+          android:textSize="@dimen/text_small"
+          android:layout_marginTop="5dp"
+          android:paddingBottom="5dp"
+          tools:ignore="HardcodedText"/>
+
+      <Button
+          android:id="@+id/button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/padding_default"
+          android:layout_marginBottom="@dimen/padding_default"
+          android:text="Save"
+          tools:ignore="HardcodedText"/>
+   </LinearLayout>
+</RelativeLayout>

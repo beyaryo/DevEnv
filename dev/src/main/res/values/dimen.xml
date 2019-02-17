@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <dimen name="padding_default">10dp</dimen>
+   <dimen name="padding_top">15dp</dimen>
+   <dimen name="margin_top">20dp</dimen>
+   <dimen name="text_small">15sp</dimen>
+   <dimen name="text_medium">17sp</dimen>
+</resources>

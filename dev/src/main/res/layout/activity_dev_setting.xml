@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:paddingBottom="@dimen/padding_default">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/padding_default"
+          android:paddingTop="@dimen/padding_default"
+          android:paddingBottom="@dimen/padding_default"
+          android:paddingStart="@dimen/padding_default"
+          android:paddingEnd="@dimen/padding_default"
+          android:textSize="@dimen/text_small"
+          android:textColor="@android:color/holo_blue_dark"
+          android:text="Networking"
+          tools:ignore="HardcodedText"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/selectableItemBackground"
+          android:orientation="horizontal"
+          android:clickable="true"
+          android:focusable="true">
+
+         <TextView
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:textSize="@dimen/text_medium"
+             android:paddingTop="@dimen/padding_top"
+             android:paddingBottom="@dimen/padding_top"
+             android:paddingStart="@dimen/padding_default"
+             android:paddingEnd="@dimen/padding_default"
+             android:textColor="@android:color/black"
+             android:text="Base URL"
+             tools:ignore="HardcodedText"/>
+
+         <TextView
+             android:id="@+id/action_base_url"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:textSize="@dimen/text_medium"
+             android:paddingTop="@dimen/padding_top"
+             android:paddingBottom="@dimen/padding_top"
+             android:paddingStart="@dimen/padding_default"
+             android:paddingEnd="@dimen/padding_default"
+             android:textAlignment="textEnd"
+             android:maxLines="1"
+             android:ellipsize="end"
+             android:textColor="@android:color/holo_blue_light"
+             tools:text="http://www.baseurl.com"
+             tools:ignore="HardcodedText"/>
+      </LinearLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@android:color/darker_gray"/>
+
+      <TextView
+          android:id="@+id/txt_custom"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_top"
+          android:paddingTop="@dimen/padding_default"
+          android:paddingBottom="@dimen/padding_default"
+          android:paddingStart="@dimen/padding_default"
+          android:paddingEnd="@dimen/padding_default"
+          android:textSize="@dimen/text_small"
+          android:visibility="gone"
+          android:textColor="@android:color/holo_blue_dark"
+          android:text="Custom Setting"
+          tools:ignore="HardcodedText"/>
+
+      <LinearLayout
+          android:id="@+id/container_custom"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_top"
+          android:paddingTop="@dimen/padding_default"
+          android:paddingBottom="@dimen/padding_default"
+          android:paddingStart="@dimen/padding_default"
+          android:paddingEnd="@dimen/padding_default"
+          android:textSize="@dimen/text_small"
+          android:textColor="@android:color/holo_blue_dark"
+          android:text="Misc"
+          tools:ignore="HardcodedText"/>
+
+      <TextView
+          android:id="@+id/action_clear_cache"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="@dimen/text_medium"
+          android:paddingTop="@dimen/padding_top"
+          android:paddingBottom="@dimen/padding_top"
+          android:paddingStart="@dimen/padding_default"
+          android:paddingEnd="@dimen/padding_default"
+          android:clickable="true"
+          android:focusable="true"
+          android:background="?attr/selectableItemBackground"
+          android:textColor="@android:color/holo_red_light"
+          android:text="Clear Cache"
+          tools:ignore="HardcodedText"/>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@android:color/darker_gray"/>
+   </LinearLayout>
+</ScrollView>
+
