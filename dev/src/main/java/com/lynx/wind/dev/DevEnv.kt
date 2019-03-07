@@ -16,25 +16,35 @@ class DevEnv(private var context: Context?, private var appId: String?, private 
     }
 
     fun setDefaultUrl(url: String): DevEnv {
-        if (!session.getBoolean(Preference.KEY.IS_INITIALIZED)) {
+        if (!session.getBoolean(Preference.KEY.IS_INITIALIZED) && isDebug()) {
             session.putString(Preference.KEY.DEFAULT_URL, url)
             session.putString(Preference.KEY.BASE_URL, url)
+        } else if (!isDebug()) {
+            Setting.BASE_URL = url
         }
         return this
     }
 
-    fun setCustomSetting(key: String, data: String): DevEnv{
-        if (!session.getBoolean(Preference.KEY.IS_INITIALIZED)) {
+    fun setCustomSetting(key: String, data: String): DevEnv {
+        if (!session.getBoolean(Preference.KEY.IS_INITIALIZED) && isDebug()) {
             session.putString(key, data)
+        } else if (!isDebug()) {
+            Setting.CUSTOM[key] = data
         }
         return this
     }
 
     fun build() = session.putBoolean(Preference.KEY.IS_INITIALIZED, true)
 
-    fun getBaseUrl() = session.getString(Preference.KEY.BASE_URL)
+    fun getBaseUrl(): String {
+        return if (isDebug()) session.getString(Preference.KEY.BASE_URL)
+        else Setting.BASE_URL
+    }
 
-    fun getCustomSetting(key: String) = session.getString(key)
+    fun getCustomSetting(key: String): Any? {
+        return if (isDebug()) session.getString(key)
+        else Setting.CUSTOM[key]
+    }
 
     fun isDebug() = Setting.IS_DEBUG
 
@@ -51,6 +61,8 @@ class DevEnv(private var context: Context?, private var appId: String?, private 
     private object Setting {
         var IS_DEBUG = false
         var PREFERENCE_KEY = ""
+        var BASE_URL = ""
+        var CUSTOM = HashMap<String, Any>()
     }
 
     private class Preference(context: Context?, prefKey: String) {
@@ -95,7 +107,7 @@ class DevEnv(private var context: Context?, private var appId: String?, private 
             editor?.clear()?.commit()
         }
 
-        fun getCustoms(): Map<String, *>{
+        fun getCustoms(): Map<String, *> {
             return session?.all?.apply {
                 this.remove(KEY.IS_INITIALIZED)
                 this.remove(KEY.DEFAULT_URL)

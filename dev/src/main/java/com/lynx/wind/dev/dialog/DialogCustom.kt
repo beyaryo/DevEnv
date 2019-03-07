@@ -2,7 +2,7 @@ package com.lynx.wind.dev.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.text.InputType
 import android.util.TypedValue
 import android.view.View
@@ -101,6 +101,6 @@ internal class DialogCustom(context: Context, listener: DialogListener, key: Str
 
         setContentView(container)
 
-        editText.setText(data)
+        editText.setText(data as String)
     }
 }

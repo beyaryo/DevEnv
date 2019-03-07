@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
@@ -142,7 +142,7 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
     }
 
     private fun setCustomText(key: String){
-        txts[key]?.text = DevEnv(this).getCustomSetting(key)
+        txts[key]?.text = DevEnv(this).getCustomSetting(key) as String
     }
 
     private fun showAlertCache() {

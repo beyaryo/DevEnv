@@ -2,8 +2,8 @@ package com.lynx.wind.dev
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.lynx.wind.dev.intern.DevSettingActivity
 
 open class DevCompatActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ open class DevCompatActivity : AppCompatActivity() {
     private val detector by lazy {
         ShakeDetector().apply {
             shakeNumber = 2
-            threshold = 1f
+            threshold = .5f
         }
     }
 
