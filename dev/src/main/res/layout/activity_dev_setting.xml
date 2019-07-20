@@ -102,6 +102,37 @@
           android:text="Misc"
           tools:ignore="HardcodedText"/>
 
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/selectableItemBackground"
+          android:orientation="horizontal"
+          android:clickable="true"
+          android:focusable="true">
+
+         <TextView
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:textSize="@dimen/text_medium"
+             android:paddingTop="@dimen/padding_top"
+             android:paddingBottom="@dimen/padding_top"
+             android:paddingStart="@dimen/padding_default"
+             android:paddingEnd="@dimen/padding_default"
+             android:textColor="@android:color/black"
+             android:text="Log Enabled"
+             tools:ignore="HardcodedText"/>
+
+         <Switch
+             android:id="@+id/action_log_enable"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:paddingTop="@dimen/padding_top"
+             android:paddingBottom="@dimen/padding_top"
+             android:paddingStart="@dimen/padding_default"
+             android:paddingEnd="@dimen/padding_default"/>
+      </LinearLayout>
+
       <TextView
           android:id="@+id/action_clear_cache"
           android:layout_width="match_parent"

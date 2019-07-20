@@ -7,9 +7,5 @@
             android:name=".intern.DevSettingActivity"
             android:label="@string/title_activity_dev_setting"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".intern.DevCustomActivity"
-            android:label="@string/title_activity_dev_setting"
-            android:theme="@style/AppTheme" />
     </application>
 </manifest>

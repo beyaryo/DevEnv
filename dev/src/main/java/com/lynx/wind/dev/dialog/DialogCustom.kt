@@ -84,7 +84,7 @@ internal class DialogCustom(context: Context, listener: DialogListener, key: Str
                     return@setOnClickListener
                 }
 
-                DevEnv(context).setCustom(key, editText.text.toString())
+                DevEnv(context).internalSetCustom(key, editText.text.toString())
                 listener.onDataChanged(key, editText.text.toString())
                 dismiss()
             }

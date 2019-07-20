@@ -14,5 +14,11 @@ class MainActivity : DevCompatActivity() {
         setContentView(R.layout.activity_main)
 
         hello.text = "${DevEnv(this).getBaseUrl()} ${DevEnv(this).getCustomSetting("image")}"
+
+        hello.setOnClickListener {
+            DevEnv(applicationContext).log("This is log")
+        }
+
+        DevEnv(this).getCustomSetting("gian")
     }
 }

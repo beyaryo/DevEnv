@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.lynx.wind.dev.DevEnv
 import com.lynx.wind.dev.dialog.DialogBaseUrl
 import com.lynx.wind.dev.dialog.DialogCustom
@@ -23,7 +21,7 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
 
     private val container by lazy { LinearLayout(this) }
     private val env by lazy { DevEnv(this) }
-    private val custom by lazy { env.getCustoms() }
+    private val custom by lazy { env.internalGetCustoms() }
 
     private val txts = HashMap<String, TextView>()
 
@@ -97,17 +95,26 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
                             text = custom[key] as String
                         })
                     })
+                    it.addView(borderBottom())
                 }
-                it.addView(borderBottom())
             }
         }
     }
 
     @SuppressLint("SetTextI18n")
     private fun buildMiscSection() {
-        container.also {
-            it.addView(textTitle("Misc"))
-            it.addView(TextView(this).apply {
+        container.apply {
+            addView(textTitle("Misc"))
+
+            addView(containerLayout().apply {
+                addView(textLabel("Log Enabled"))
+                addView(switch {
+                    env.internalSetLogEnabled(it)
+                })
+            })
+            addView(borderBottom())
+
+            addView(TextView(this@DevSettingActivity).apply {
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -133,7 +140,7 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
 
                 setOnClickListener { showAlertCache() }
             })
-            it.addView(borderBottom())
+            addView(borderBottom())
         }
     }
 
@@ -147,7 +154,7 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
 
     private fun showAlertCache() {
         AlertDialog.Builder(this)
-            .setMessage("Are you sure to wipe all application data? Application will be closed after proses.")
+            .setMessage("Are you sure to wipe all application data? Application will be closed after process.")
             .setPositiveButton("Yes") { dialog, _ ->
                 DevEnv(this@DevSettingActivity).destroySession()
                 cacheDir.deleteRecursively()
@@ -170,8 +177,8 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
         }
     }
 
-    private fun textTitle(title: String): TextView {
-        return TextView(this).apply {
+    private fun textTitle(title: String) =
+        TextView(this).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -184,10 +191,9 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
             setTextColor(ContextCompat.getColor(this@DevSettingActivity, android.R.color.holo_blue_dark))
             text = title.capitalize()
         }
-    }
 
-    private fun textLabel(title: String): TextView {
-        return TextView(this).apply {
+    private fun textLabel(title: String) =
+        TextView(this).apply {
             layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
                 weight = 1f
             }
@@ -197,10 +203,9 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
             setTextColor(ContextCompat.getColor(this@DevSettingActivity, android.R.color.black))
             text = title.capitalize()
         }
-    }
 
-    private fun textValue(action: () -> Unit): TextView {
-        return TextView(this).apply {
+    private fun textValue(action: () -> Unit) =
+        TextView(this).apply {
             layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
                 weight = 1f
             }
@@ -214,10 +219,20 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
 
             setOnClickListener { action() }
         }
-    }
 
-    private fun containerLayout(): LinearLayout {
-        return LinearLayout(this).apply {
+    private fun switch(action: (Boolean) -> Unit) =
+        Switch(this).apply {
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+
+            setPadding(DP10, DP15, DP10, DP15)
+
+            isChecked = env.internalIsLogEnabled()
+
+            setOnCheckedChangeListener { _, isChecked -> action.invoke(isChecked) }
+        }
+
+    private fun containerLayout() =
+        LinearLayout(this).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -234,12 +249,10 @@ internal class DevSettingActivity : AppCompatActivity(), DialogListener {
             isFocusable = true
             orientation = LinearLayout.HORIZONTAL
         }
-    }
 
-    private fun borderBottom(): View {
-        return View(this).apply {
+    private fun borderBottom() =
+        View(this).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1)
             setBackgroundColor(ContextCompat.getColor(this@DevSettingActivity, android.R.color.darker_gray))
         }
-    }
 }

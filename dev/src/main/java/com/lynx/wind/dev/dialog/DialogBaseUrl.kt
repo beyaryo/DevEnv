@@ -20,7 +20,7 @@ internal class DialogBaseUrl(context: Context, listener: DialogListener) : Dialo
     private var baseUrl by Delegates.observable("") { _, _, newValue ->
         checkBox.isChecked = newValue == defaultUrl
     }
-    private val defaultUrl by lazy { DevEnv(context).getDefaultUrl() }
+    private val defaultUrl by lazy { DevEnv(context).internalGetDefaultUrl() }
     private var checkBox: CheckBox
 
     private val DP5 by lazy { 5f.toDp(context).toInt() }
@@ -114,7 +114,7 @@ internal class DialogBaseUrl(context: Context, listener: DialogListener) : Dialo
 
                 baseUrl = editText.text.toString()
 
-                DevEnv(context).setBaseUrl(baseUrl)
+                DevEnv(context).internalSetBaseUrl(baseUrl)
                 listener.onDataChanged(TAG, baseUrl)
                 dismiss()
             }
