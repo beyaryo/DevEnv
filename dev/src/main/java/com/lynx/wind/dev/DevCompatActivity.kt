@@ -17,6 +17,7 @@ open class DevCompatActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .setNegativeButton("No", null)
+            .create()
     }
 
     private val detector by lazy {
@@ -30,7 +31,8 @@ open class DevCompatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         detector.create(this, object : ShakeListener {
             override fun onShake() {
-                shakeDialog.show()
+                if(!shakeDialog.isShowing)
+                    shakeDialog.show()
             }
         })
     }
